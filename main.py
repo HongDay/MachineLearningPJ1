@@ -1,10 +1,7 @@
 import numpy as np
 import torch
-import torchvision
-import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data.sampler import SubsetRandomSampler
 
 from load_data import dataloader
 from model_train import train
