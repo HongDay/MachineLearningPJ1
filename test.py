@@ -77,11 +77,3 @@ def plot_training_curves(train_loss, valid_loss, train_acc, valid_acc, n_epochs)
     plt.grid(True)
     plt.show()
 
-
-accuracy + loss / confusion matrix -> feedback / visualize -> loss trend + accuracy trend
-
-https://velog.io/@smile_b/CNN-24-Confusion-Matrix-and-Classification-Report
-
-
-
-

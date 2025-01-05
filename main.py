@@ -20,7 +20,7 @@ if __name__ == '__main__':
     train_loader, valid_loader, test_loader, classes = dataloader(train_dir, test_dir)
     
     # Training part
-    device = torch.device("mps")
+    device = torch.device("cuda")
     n_epochs = 1
     model = Baseline()
     model = model.to(device)
