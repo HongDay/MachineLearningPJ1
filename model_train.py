@@ -11,6 +11,11 @@ from test import eval_accuracy
 
 def train(train_loader, valid_loader, device, n_epochs, model, criterion, optimizer):
 
+    tr_loss = []  # To store average training loss for each epoch
+    val_loss = []  # To store average validation loss for each epoch
+    tr_acc = []   # To store training accuracy for each epoch
+    val_acc = []   # To store validation accuracy for each epoch
+
     # loop over epochs: one epoch = one pass through the whole training dataset
     for epoch in range(1, n_epochs+1):  
         #   loop over iterations: one iteration = 1 batch of examples
@@ -26,11 +31,18 @@ def train(train_loader, valid_loader, device, n_epochs, model, criterion, optimi
             optimizer.step()
 
             if i % (int(len(train_loader)/10)+1) == 0:
-                model.eval()
-                eval_accuracy(valid_loader,model,device)
+                eval_accuracy(valid_loader,model,device, criterion, "During train")
                 print("-------------------------------------",np.round(i/len(train_loader)*100,2),"% complete")
             
         print(f"============================= epoch {epoch} done out of {n_epochs} !!")
-        model.eval()
-        eval_accuracy(valid_loader,model,device)
+
+        valacc, valloss = eval_accuracy(valid_loader,model, device, criterion, "Validation")
+        val_acc.append(valacc)
+        val_loss.append(valloss)
+        tracc, trloss = eval_accuracy(train_loader, model, device, criterion, "Training")
+        tr_acc.append(tracc)
+        tr_loss.append(trloss)
+
         print("\n")
+
+    return tr_loss, val_loss, tr_acc, val_acc
