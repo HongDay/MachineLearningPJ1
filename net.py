@@ -1,5 +1,8 @@
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torchvision.models as models
+import warnings
 
 
 # Basic NN model which was in skeleton code provided by professor
@@ -44,3 +47,20 @@ class Newmodel_ver1(nn.Module):
         # forward through the layers
         return x
 '''
+
+
+# prepare pre-trained vgg16 model
+
+warnings.filterwarnings("ignore", category=UserWarning)
+
+def get_vgg16():
+    # Load pre-trained ResNet-50
+    model = models.vgg16(pretrained=True)
+
+    # Replace the first convolutional layer to accept 1 channel
+    model.features[0] = torch.nn.Conv2d(in_channels=1, out_channels=64, kernel_size=3, stride=1, padding=1)
+    
+    # Replace the final fully connected layer for your specific task
+    model.classifier[6] = torch.nn.Linear(in_features=4096, out_features=2)
+    
+    return model
