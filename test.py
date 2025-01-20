@@ -2,12 +2,11 @@ import torch
 import torch.nn as nn
 
 # test_lodaer : 
-def eval_accuracy(valid_loader, model, device):
+def eval_accuracy(valid_loader, model, device, criterion, mode):
     model.eval()
     valid_correct = 0
     valid_total = 0
     valid_loss = 0
-    criterion = nn.CrossEntropyLoss()
 
     with torch.no_grad():
         for data, target in valid_loader:
@@ -20,7 +19,10 @@ def eval_accuracy(valid_loader, model, device):
             valid_loss += loss.item()
 
     valid_accuracy = (100 * valid_correct / valid_total)
-    print(f'Validation Accuracy: {valid_accuracy:.2f}% / Validation Loss: {valid_loss:.2f}')
+    avg_loss = valid_loss / len(valid_loader)
+    print(f'{mode} Accuracy: {valid_accuracy:.2f}% / {mode} Loss: {avg_loss:.4f}')
+
+    return valid_accuracy, avg_loss
 
 
 
@@ -76,12 +78,5 @@ def plot_training_curves(train_loss, valid_loss, train_acc, valid_acc, n_epochs)
     plt.legend()
     plt.grid(True)
     plt.show()
-
-
-accuracy + loss / confusion matrix -> feedback / visualize -> loss trend + accuracy trend
-
-https://velog.io/@smile_b/CNN-24-Confusion-Matrix-and-Classification-Report
-
-
 
 
