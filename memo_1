@@ -1,0 +1,18 @@
+<drawbacks for baseline model(face=face bad)>
+
+The current model performs worse compared to ResNet-50 
+It is shallow and lacks the depth needed to extract complex features.
+It is trained from scratch, while ResNet-50 benefits from pre-trained weights.
+It struggles with class imbalance and overfits the majority class.
+It lacks the architectural advantages of residual connections, which allow ResNet-50 to learn deeper representations effectively.
+
+
+기본
+
+나머지 3개랑 성능 비교하기
+
+차이가 나는 이유 분석
+
+베이스라인이 성능이 떨어질 수 밖에 없는 이유 기술
+
+어떤점이 3개의 모델에서 다른지 이유 찾아보기 
